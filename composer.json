@@ -1,0 +1,42 @@
+{
+  "name": "PDFGenerator",
+  "version": "1.1",
+  "homepage": "https://pdf-generator-acn.herokuapp.com/",
+  "type": "library",
+  "description": "Use PDF Generator to create PDF documents.",
+  "keywords": [
+    "PDF",
+    "tcpdf",
+    "PDFD32000-2018",
+    "qrcode",
+    "datamatrix",
+    "pdf417",
+    "barcodes"
+  ],
+  "license": "LGPL-3.0",
+  "authors": [
+    {
+      "name": "Florin Valean",
+      "email": "fvalean@gmail.com",
+      "role": "lead"
+    }
+  ],
+  "require": {
+    "php": "~7.2.0"
+  },
+  "autoload": {
+    "classmap": [
+      "config",
+      "include",
+      "tcpdf.php",
+      "tcpdf_parser.php",
+      "tcpdf_import.php",
+      "include/tcpdf_colors.php",
+      "include/tcpdf_filters.php",
+      "include/tcpdf_font_data.php",
+      "include/tcpdf_fonts.php",
+      "include/tcpdf_images.php",
+      "include/tcpdf_static.php"
+    ]
+  }
+}
