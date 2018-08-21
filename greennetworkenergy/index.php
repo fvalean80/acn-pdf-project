@@ -41,9 +41,10 @@ if($html) {
    $pdfName = "PDF-File-{$sk}-".time().".pdf";
    $pdf->Output(getcwd()."/$pdfName", 'F');
    header("HTTP/1.1 200 OK");
-   echo "https://pdf-generator-acn.herokuapp.com/greennetworkenergy/$pdfName";
+   //echo "https://pdf-generator-acn.herokuapp.com/greennetworkenergy/$pdfName";
+   echo getcwd();
 } else {
-   header("HTTP/1.1 400 ERROR");
+   header("HTTP/1.1 400 ERROR"); echo "ERROR-x 400";
 }
 
 // delete files older than 3 minutes
