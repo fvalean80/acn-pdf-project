@@ -71,6 +71,17 @@ if(count($items) > 0 && $eid > 0) {
    foreach($items as $ik) {
            // get email html source code
            $key = $ik["keys"]["contactid"];
+		   
+		   if($key) {
+	header("HTTP/1.1 200 OK");
+	echo "KEY: $key";
+	exit(0);
+} else {
+	header("HTTP/1.1 200 OK");
+	echo "KEY failure";
+	exit(0);
+}
+		   
            $urlPreview = "https://www.exacttargetapis.com/guide/v1/emails/$eid/dataExtension/key:$dk/contacts/key:$key/preview?kind=html";
            $ch = curl_init($urlPreview);
            curl_setopt($ch, CURLOPT_POST, 1);
@@ -102,16 +113,6 @@ if(count($items) > 0 && $eid > 0) {
            $pdf->deletePage(2);
            $pdfName = $n."-".md5("WildCard$ik")."-".time().".pdf";
            $pdf->Output(getcwd()."/$pdfName", 'F');
-		   
-		   if($pdfName) {
-	header("HTTP/1.1 200 OK");
-	echo "File name: $pdfName";
-	exit(0);
-} else {
-	header("HTTP/1.1 200 OK");
-	echo "File name failure";
-	exit(0);
-}
            
            // write PDF file to SFTP
            if(file_exists($pdfName)) {
