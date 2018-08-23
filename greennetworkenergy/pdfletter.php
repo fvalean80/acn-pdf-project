@@ -55,16 +55,6 @@ $emJson = curl_exec($ch);
 curl_close($ch);
 $emJsonDecoded = json_decode($emJson, true);
 $eid = $emJsonDecoded["items"][0]["data"]["email"]["legacy"]["legacyId"];
-
-if($eid) {
-	header("HTTP/1.1 200 OK");
-	echo "Email id: $eid";
-	exit(0);
-} else {
-	header("HTTP/1.1 200 OK");
-	echo "Email failure";
-	exit(0);
-}
 	
 // get all records from data extension
 $urlDE = "https://www.exacttargetapis.com/data/v1/customobjectdata/key/$dk/rowset?".'$fields=ContactId';
@@ -76,6 +66,16 @@ $rowset = curl_exec($ch);
 curl_close($ch);
 $rowsetDecoded = json_decode($rowset, true);
 $items = $rowsetDecoded["items"];
+
+if($items) {
+	header("HTTP/1.1 200 OK");
+	echo "Email id: OK";
+	exit(0);
+} else {
+	header("HTTP/1.1 200 OK");
+	echo "Items failure";
+	exit(0);
+}
 
 if(count($items) > 0 && $eid > 0) {
    foreach($items as $ik) {
