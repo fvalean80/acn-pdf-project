@@ -111,7 +111,7 @@ if(count($items) > 0 && $eid > 0) {
 			   
 			   if(true) {
 	header("HTTP/1.1 200 OK");
-	echo "Up To Here write file exists";
+	echo "write file exists";
 	exit(0);
 } else {
 	header("HTTP/1.1 200 OK");
