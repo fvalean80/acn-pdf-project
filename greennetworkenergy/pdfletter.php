@@ -80,8 +80,7 @@ if(count($items) > 0 && $eid > 0) {
            curl_close($ch);
            $emailHTMLSource = json_decode($preview, true);
            $emailHTML = trim($emailHTMLSource["message"]["views"][0]["content"]); // email html source
-           $emailHTML = formatHTML($emailHTML);
-		   
+           $emailHTML = formatHTML($emailHTML); 
            // generate PDF
            $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
            $pdf->SetCreator(PDF_CREATOR);
@@ -99,6 +98,17 @@ if(count($items) > 0 && $eid > 0) {
            $pdf->setHtmlVSpace($tagvs);
            $pdf->setCellHeightRatio(1.80);
            $pdf->AddPage();
+		   
+		   if(true) {
+	header("HTTP/1.1 200 OK");
+	echo "Up To Here";
+	exit(0);
+} else {
+	header("HTTP/1.1 200 OK");
+	echo "Failure";
+	exit(0);
+}
+		   
            $pdf->writeHTML($emailHTML, true, false, true, false, '');
            $pdf->deletePage(2);
            $pdfName = $n."-".md5("WildCard$key")."-".time().".pdf";
