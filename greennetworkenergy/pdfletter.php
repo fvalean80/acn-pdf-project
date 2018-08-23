@@ -67,16 +67,6 @@ curl_close($ch);
 $rowsetDecoded = json_decode($rowset, true);
 $items = $rowsetDecoded["items"];
 
-if($items) {
-	header("HTTP/1.1 200 OK");
-	echo "Email id: OK";
-	exit(0);
-} else {
-	header("HTTP/1.1 200 OK");
-	echo "Items failure";
-	exit(0);
-}
-
 if(count($items) > 0 && $eid > 0) {
    foreach($items as $ik) {
            // get email html source code
@@ -108,8 +98,6 @@ if(count($items) > 0 && $eid > 0) {
            $pdf->setHtmlVSpace($tagvs);
            $pdf->setCellHeightRatio(1.80);
            $pdf->AddPage();
-           
-           file_put_contents("aaaaaaaa.txt", $emailHTML);
            $pdf->writeHTML($emailHTML, true, false, true, false, '');
            $pdf->deletePage(2);
            $pdfName = $n."-".md5("WildCard$ik")."-".time().".pdf";
