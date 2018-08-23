@@ -45,16 +45,6 @@ $accessTokenResult = json_decode($response, true);
 $accessToken = $accessTokenResult["accessToken"]; // token
 $headers = array("Content-type: application/json", "Authorization:Bearer $accessToken");
 
-if($accessToken) {
-	header("HTTP/1.1 200 OK");
-	echo "Token: $accessToken";
-	exit(0);
-} else {
-	header("HTTP/1.1 200 OK");
-	echo "Token failure";
-	exit(0);
-}
-
 // get email legacy id 
 $urlEM = 'https://www.exacttargetapis.com/asset/v1/content/assets?$filter=Name%20eq%20\''.str_replace(' ', '%20', $en)."'";
 $ch = curl_init($urlEM);
@@ -65,6 +55,16 @@ $emJson = curl_exec($ch);
 curl_close($ch);
 $emJsonDecoded = json_decode($emJson, true);
 $eid = $emJsonDecoded["items"][0]["data"]["email"]["legacy"]["legacyId"];
+
+if($eid) {
+	header("HTTP/1.1 200 OK");
+	echo "Email id: $eid";
+	exit(0);
+} else {
+	header("HTTP/1.1 200 OK");
+	echo "Email failure";
+	exit(0);
+}
 	
 // get all records from data extension
 $urlDE = "https://www.exacttargetapis.com/data/v1/customobjectdata/key/$dk/rowset?".'$fields=ContactId';
