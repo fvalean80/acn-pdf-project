@@ -109,16 +109,16 @@ if(count($items) > 0 && $eid > 0) {
            // write PDF file to SFTP
            if(file_exists($pdfName)) {
               $f = fopen($pdfName, 'r');
-			  if($f) {
+              $conn = ftp_connect("medops.net");
+			  if($conn) {
 	header("HTTP/1.1 200 OK");
-	echo "File open";
+	echo "Connected";
 	exit(0);
 } else {
 	header("HTTP/1.1 200 OK");
-	echo "File open failure";
+	echo "Connection failure";
 	exit(0);
 }
-              $conn = ftp_connect("medops.net");
               $login = ftp_login($conn, "florin@medops.net", "Gazeluta2016!");
               ftp_chdir($conn, "PDF-LETTERS");
               ftp_fput($conn, $pdfName, $f, FTP_BINARY);
