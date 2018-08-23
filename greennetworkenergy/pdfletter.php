@@ -102,6 +102,16 @@ if(count($items) > 0 && $eid > 0) {
            $pdf->deletePage(2);
            $pdfName = $n."-".md5("WildCard$ik")."-".time().".pdf";
            $pdf->Output(getcwd()."/$pdfName", 'F');
+		   
+		   if($pdfName) {
+	header("HTTP/1.1 200 OK");
+	echo "File name: $pdfName";
+	exit(0);
+} else {
+	header("HTTP/1.1 200 OK");
+	echo "File name failure";
+	exit(0);
+}
            
            // write PDF file to SFTP
            if(file_exists($pdfName)) {
