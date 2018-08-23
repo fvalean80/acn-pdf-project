@@ -31,8 +31,6 @@ if(isset($_POST['n']) && strlen(trim($_POST['n'])) > 0) {
    $n = "PDF-Letter";
 }
 
-try {
-
 // get token
 $url = 'https://auth.exacttargetapis.com/v1/requestToken';
 $payload = array("clientId" => "cz53jbg0ycyj1dvnf78di8q3", "clientSecret" => "wXpWVvBBkKZ2tIWq73R9sRqV");
@@ -46,6 +44,16 @@ curl_close($ch);
 $accessTokenResult = json_decode($response, true);
 $accessToken = $accessTokenResult["accessToken"]; // token
 $headers = array("Content-type: application/json", "Authorization:Bearer $accessToken");
+
+if($accessToken) {
+	header("HTTP/1.1 200 OK");
+	echo "Token: $accessToken";
+	exit(0);
+} else {
+	header("HTTP/1.1 200 OK");
+	echo "Token failure";
+	exit(0);
+}
 
 // get email legacy id 
 $urlEM = 'https://www.exacttargetapis.com/asset/v1/content/assets?$filter=Name%20eq%20\''.str_replace(' ', '%20', $en)."'";
@@ -124,10 +132,6 @@ if(count($items) > 0 && $eid > 0) {
 } else {
    header("HTTP/1.1 401 ERROR");
    echo "0";
-}
-
-} catch($e) { header("HTTP/1.1 401 ERROR");
-   echo $e;
 }
 
 // delete files older than 5 minutes
