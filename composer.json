@@ -24,7 +24,8 @@
   "require": {
     "php": "~7.2.0",
 	"ext-gd": "*",
-	"ext-curl": "*"
+	"ext-curl": "*",
+	"ext-ftp": "*"
   },
   "autoload": {
     "classmap": [
