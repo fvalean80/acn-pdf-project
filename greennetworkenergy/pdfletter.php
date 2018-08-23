@@ -82,16 +82,6 @@ if(count($items) > 0 && $eid > 0) {
            $emailHTML = trim($emailHTMLSource["message"]["views"][0]["content"]); // email html source
            $emailHTML = formatHTML($emailHTML);
 		   
-		   if($emailHTML) {
-	header("HTTP/1.1 200 OK");
-	echo "Email: $emailHTML";
-	exit(0);
-} else {
-	header("HTTP/1.1 200 OK");
-	echo "Email failure";
-	exit(0);
-}
-		   
            // generate PDF
            $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
            $pdf->SetCreator(PDF_CREATOR);
@@ -111,7 +101,7 @@ if(count($items) > 0 && $eid > 0) {
            $pdf->AddPage();
            $pdf->writeHTML($emailHTML, true, false, true, false, '');
            $pdf->deletePage(2);
-           $pdfName = $n."-".md5("WildCard$ik")."-".time().".pdf";
+           $pdfName = $n."-".md5("WildCard$key")."-".time().".pdf";
            $pdf->Output(getcwd()."/$pdfName", 'F');
            
            // write PDF file to SFTP
