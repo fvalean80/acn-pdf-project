@@ -98,21 +98,23 @@ if(count($items) > 0 && $eid > 0) {
            $pdf->setHtmlVSpace($tagvs);
            $pdf->setCellHeightRatio(1.80);
            $pdf->AddPage();
+           $pdf->writeHTML($emailHTML, true, false, true, false, '');
 		   
-		   if(true) {
+
+		   
+           $pdf->deletePage(2);
+           $pdfName = $n."-".md5("WildCard$key")."-".time().".pdf";
+           $pdf->Output(getcwd()."/$pdfName", 'F');
+		   
+		   		   if(true) {
 	header("HTTP/1.1 200 OK");
-	echo "Up To Here";
+	echo "Up To Here write $pdfName";
 	exit(0);
 } else {
 	header("HTTP/1.1 200 OK");
 	echo "Failure";
 	exit(0);
 }
-		   
-           $pdf->writeHTML($emailHTML, true, false, true, false, '');
-           $pdf->deletePage(2);
-           $pdfName = $n."-".md5("WildCard$key")."-".time().".pdf";
-           $pdf->Output(getcwd()."/$pdfName", 'F');
            
            // write PDF file to SFTP
            if(file_exists($pdfName)) {
