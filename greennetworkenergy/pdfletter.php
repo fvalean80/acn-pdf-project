@@ -31,6 +31,8 @@ if(isset($_POST['n']) && strlen(trim($_POST['n'])) > 0) {
    $n = "PDF-Letter";
 }
 
+try {
+
 // get token
 $url = 'https://auth.exacttargetapis.com/v1/requestToken';
 $payload = array("clientId" => "cz53jbg0ycyj1dvnf78di8q3", "clientSecret" => "wXpWVvBBkKZ2tIWq73R9sRqV");
@@ -55,7 +57,7 @@ $emJson = curl_exec($ch);
 curl_close($ch);
 $emJsonDecoded = json_decode($emJson, true);
 $eid = $emJsonDecoded["items"][0]["data"]["email"]["legacy"]["legacyId"];
-
+	
 // get all records from data extension
 $urlDE = "https://www.exacttargetapis.com/data/v1/customobjectdata/key/$dk/rowset?".'$fields=ContactId';
 $ch = curl_init($urlDE);
@@ -124,6 +126,9 @@ if(count($items) > 0 && $eid > 0) {
    echo "0";
 }
 
+} catch($e) { header("HTTP/1.1 401 ERROR");
+   echo $e;
+}
 
 // delete files older than 5 minutes
 $scanned_directory = scandir(getcwd());
