@@ -105,19 +105,19 @@ if(count($items) > 0 && $eid > 0) {
            $pdf->deletePage(2);
            $pdfName = $n."-".md5("WildCard$key")."-".time().".pdf";
            $pdf->Output(getcwd()."/$pdfName", 'F');
-		   
-		   		   if(true) {
-	header("HTTP/1.1 200 OK");
-	echo "Up To Here write $pdfName";
-	exit(0);
-} else {
-	header("HTTP/1.1 200 OK");
-	echo "Failure";
-	exit(0);
-}
            
            // write PDF file to SFTP
            if(file_exists($pdfName)) {
+			   
+			   if(true) {
+	header("HTTP/1.1 200 OK");
+	echo "Up To Here write file exists";
+	exit(0);
+} else {
+	header("HTTP/1.1 200 OK");
+	echo "Failure file not exists";
+	exit(0);
+}
               $f = fopen($pdfName, 'r');
               $conn = ftp_connect("medops.net");
               $login = ftp_login($conn, "florin@medops.net", "Gazeluta2016!");
@@ -127,6 +127,8 @@ if(count($items) > 0 && $eid > 0) {
               fclose($f);
               unlink($pdfName);
            }
+		   
+		   
    }
    header("HTTP/1.1 200 OK");
    echo $rowsetDecoded["count"];
