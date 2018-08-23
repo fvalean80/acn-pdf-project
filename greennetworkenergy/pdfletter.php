@@ -71,17 +71,6 @@ if(count($items) > 0 && $eid > 0) {
    foreach($items as $ik) {
            // get email html source code
            $key = $ik["keys"]["contactid"];
-		   
-		   if($key) {
-	header("HTTP/1.1 200 OK");
-	echo "KEY: $key";
-	exit(0);
-} else {
-	header("HTTP/1.1 200 OK");
-	echo "KEY failure";
-	exit(0);
-}
-		   
            $urlPreview = "https://www.exacttargetapis.com/guide/v1/emails/$eid/dataExtension/key:$dk/contacts/key:$key/preview?kind=html";
            $ch = curl_init($urlPreview);
            curl_setopt($ch, CURLOPT_POST, 1);
@@ -92,6 +81,17 @@ if(count($items) > 0 && $eid > 0) {
            $emailHTMLSource = json_decode($preview, true);
            $emailHTML = trim($emailHTMLSource["message"]["views"][0]["content"]); // email html source
            $emailHTML = formatHTML($emailHTML);
+		   
+		   if($emailHTML) {
+	header("HTTP/1.1 200 OK");
+	echo "Email: $emailHTML";
+	exit(0);
+} else {
+	header("HTTP/1.1 200 OK");
+	echo "Email failure";
+	exit(0);
+}
+		   
            // generate PDF
            $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
            $pdf->SetCreator(PDF_CREATOR);
