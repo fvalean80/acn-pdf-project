@@ -23,7 +23,8 @@
   ],
   "require": {
     "php": "~7.2.0",
-	"ext-gd": "*"
+	"ext-gd": "*",
+	"ext-curl": "*"
   },
   "autoload": {
     "classmap": [
